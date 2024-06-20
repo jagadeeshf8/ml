@@ -1,0 +1,28 @@
+
+import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import cross_val_score, cross_validate
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+
+
+
+data = load_breast_cancer()
+X = data.data
+y = data.target
+
+
+clf = KNeighborsClassifier(n_neighbors=5)
+
+# Perform k-fold cross-validation and measure performance
+accuracy_scores = cross_val_score(clf, X, y, cv=5,scoring='accuracy')
+precision_scores = cross_val_score(clf, X, y, cv=5,scoring='precision')
+recall_scores = cross_val_score(clf, X, y, cv=5, scoring='recall')
+
+# Print the performance metrics
+print("Accuracy scores:", accuracy_scores)
+print("Mean accuracy:", np.mean(accuracy_scores))
+print("Precision scores:", precision_scores)
+print("Mean precision:", np.mean(precision_scores))
+print("Recall scores:", recall_scores)
+print("Mean recall:", np.mean(recall_scores))
